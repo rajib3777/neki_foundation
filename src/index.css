@@ -1,10 +1,11 @@
+@import url('https://fonts.maateen.me/solaiman-lipi/font.css');
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Hind Siliguri', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-bangla: 'Hind Siliguri', sans-serif;
-  --font-heading: 'Tiro Bangla', 'Hind Siliguri', serif;
+  --font-sans: 'SolaimanLipi', 'Hind Siliguri', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-bangla: 'SolaimanLipi', 'Hind Siliguri', sans-serif;
+  --font-heading: 'SolaimanLipi', 'Tiro Bangla', 'Hind Siliguri', serif;
 
   --color-brand-navy-950: #0F172A;
   --color-brand-navy-900: #1E293B;

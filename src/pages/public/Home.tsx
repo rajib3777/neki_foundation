@@ -82,19 +82,18 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
             {/* Content — Full Width, compact spacing */}
-            <div className="lg:col-span-12 space-y-4 text-left max-w-4xl">
+            <div className="lg:col-span-12 space-y-5 text-left max-w-4xl">
               
-              {/* Online Pulse Live Chip */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0F172A]/90 text-amber-400 text-xs font-bold border border-amber-400/50 shadow-lg backdrop-blur-md">
-                <span className="pulse-dot" />
-                <span>অনলাইন প্যানেল আইনজীবী ও ৬৪ জেলা আইনী সহায়তা ডেক্স সক্রিয়</span>
-              </div>
-
-              {/* Tiro Bangla Compact Heading with NO Overlaps */}
-              <div className="space-y-1">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white font-heading drop-shadow-md leading-tight">
-                  ন্যায়, মানবতা ও{' '}
-                  <span className="text-gold-gradient inline-block">আইনের সুরক্ষায় নিবেদিত</span>
+              {/* Tiro Bangla Heading — Two clear distinct lines */}
+              <div className="space-y-3">
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-300 font-sans tracking-wide">
+                  ন্যায়, মানবতা ও
+                </p>
+                <h1
+                  className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black font-heading leading-none drop-shadow-2xl"
+                  style={{ color: '#F59E0B', textShadow: '0 2px 24px rgba(0,0,0,0.7)' }}
+                >
+                  আইনের সুরক্ষায় নিবেদিত
                 </h1>
               </div>
 
@@ -126,38 +125,87 @@ export const Home: React.FC = () => {
             </div>
 
           </div>
+        </div>
+      </section>
 
-          {/* Live Case Tracking Widget Bar */}
-          <div className="mt-5 glass-card-dark rounded-2xl p-4 sm:p-5 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-4">
-            <div className="space-y-0.5 text-left w-full lg:w-auto">
-              <p className="text-[11px] font-extrabold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" />
-                আবেদনের লাইভ স্ট্যাটাস ট্র্যাকার:
+      {/* 1.5 LIVE STATUS TRACKER — below hero */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
+        <div className="glass-card rounded-3xl shadow-2xl border border-amber-500/25 overflow-hidden">
+          {/* Top accent bar */}
+          <div className="bg-[#0F172A] px-6 py-4 flex items-center gap-3 border-b border-amber-500/20">
+            <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-amber-500/20 shrink-0">
+              <Clock className="w-4 h-4 text-amber-400" />
+            </span>
+            <div>
+              <p className="text-[11px] font-extrabold text-amber-400 uppercase tracking-widest">
+                আবেদনের লাইভ স্ট্যাটাস ট্র্যাকার
               </p>
-              <p className="text-xs font-bold text-white font-heading">
-                আপনার আবেদনের ট্র্যাকিং নম্বর দিয়ে রিয়েল-টাইম অগ্রগতি দেখুন
+              <p className="text-xs text-slate-400 font-sans mt-0.5">
+                আপনার ট্র্যাকিং নম্বর দিয়ে রিয়েল-টাইম অগ্রগতি দেখুন
               </p>
             </div>
+            <span className="ml-auto flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-400 text-[10px] font-bold shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              সক্রিয়
+            </span>
+          </div>
 
-            <form onSubmit={handleTrackCase} className="flex flex-col sm:flex-row gap-2.5 w-full lg:w-auto shrink-0">
-              <input
-                type="text"
-                value={trackingNumberInput}
-                onChange={(e) => setTrackingNumberInput(e.target.value)}
-                placeholder="যেমন: NF-LEG-2026-001"
-                className="px-4 py-2.5 text-xs font-mono font-bold text-gray-900 bg-white border border-amber-400/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 w-full sm:w-60 shadow-2xs"
-              />
-              <Button type="submit" variant="gold" size="sm" isLoading={isSearchingCase}>
-                ট্র্যাক করুন
+          {/* Form body */}
+          <div className="px-6 py-5 bg-white/80">
+            <form onSubmit={handleTrackCase} className="flex flex-col sm:flex-row gap-3">
+              <div className="relative flex-1">
+                <FileText className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  value={trackingNumberInput}
+                  onChange={(e) => setTrackingNumberInput(e.target.value)}
+                  placeholder="ট্র্যাকিং নম্বর লিখুন — যেমন: NF-LEG-2026-001"
+                  className="w-full pl-10 pr-4 py-3 text-sm font-mono font-bold text-gray-800 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all placeholder:font-sans placeholder:font-normal placeholder:text-gray-400"
+                />
+              </div>
+              <Button
+                type="submit"
+                variant="gold"
+                size="md"
+                isLoading={isSearchingCase}
+                className="shrink-0 sm:w-auto w-full"
+              >
+                <Search className="w-4 h-4 mr-2" />
+                স্ট্যাটাস দেখুন
               </Button>
             </form>
-          </div>
-          {caseNotFound && (
-            <p className="text-xs font-bold text-amber-300 text-center font-sans mt-2">
-              ⚠️ ট্র্যাকিং নম্বরটি পাওয়া যায়নি। নমুনা ট্র্যাকিং নম্বর ব্যবহার করুন: <code className="underline cursor-pointer" onClick={() => setTrackingNumberInput('NF-LEG-2026-001')}>NF-LEG-2026-001</code>
-            </p>
-          )}
 
+            {caseNotFound && (
+              <div className="mt-3 flex items-start gap-2.5 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200">
+                <span className="text-base shrink-0">⚠️</span>
+                <p className="text-xs text-amber-800 font-sans">
+                  ট্র্যাকিং নম্বরটি পাওয়া যায়নি।{' '}
+                  <button
+                    type="button"
+                    onClick={() => setTrackingNumberInput('NF-LEG-2026-001')}
+                    className="font-bold font-mono underline underline-offset-2 text-[#D97706] hover:text-amber-700 transition-colors"
+                  >
+                    NF-LEG-2026-001
+                  </button>{' '}
+                  ব্যবহার করুন।
+                </p>
+              </div>
+            )}
+
+            <div className="mt-3 flex flex-wrap gap-2 items-center">
+              <span className="text-[10px] text-gray-400 font-sans">দ্রুত পরীক্ষা করুন:</span>
+              {['NF-LEG-2026-001', 'NF-LEG-2026-002', 'NF-LEG-2026-003'].map((code) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => setTrackingNumberInput(code)}
+                  className="px-2.5 py-1 text-[10px] font-mono font-bold text-[#D97706] bg-amber-50 border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors cursor-pointer"
+                >
+                  {code}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
