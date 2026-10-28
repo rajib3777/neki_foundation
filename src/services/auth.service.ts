@@ -4,11 +4,22 @@ import type { User, UserRole } from '../types';
 import { mockUsers } from '../data/mock/users.data';
 
 class AuthService {
-  private currentUser: User | null = mockUsers.public || null;
+  private currentUser: User | null = null;
+
+  constructor() {
+    try {
+      const saved = localStorage.getItem('neki_auth_role') as UserRole | null;
+      if (saved === 'BENEFICIARY') this.currentUser = mockUsers.beneficiary;
+      else if (saved === 'LAWYER') this.currentUser = mockUsers.lawyer;
+      else if (saved === 'ADMIN') this.currentUser = mockUsers.admin;
+    } catch {
+      // Ignore localStorage errors in SSR or restricted environments
+    }
+  }
 
   async getCurrentUser(): Promise<User | null> {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(this.currentUser), 150);
+      setTimeout(() => resolve(this.currentUser), 100);
     });
   }
 

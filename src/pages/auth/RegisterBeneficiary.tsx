@@ -8,7 +8,6 @@ import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { Button } from '../../components/ui/Button';
 import { bangladeshDistricts } from '../../config/districts.config';
-import { ShieldAlert } from 'lucide-react';
 
 const beneficiarySchema = z.object({
   fullName: z.string().min(3, 'সম্পূর্ণ নাম সর্বনিম্ন ৩ অক্ষরের হতে হবে'),
@@ -39,13 +38,8 @@ export const RegisterBeneficiary: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-gray-900 font-bangla">সেবাগ্রহীতা নিবন্ধন</h2>
-        <p className="mt-1 text-xs text-gray-500 font-bangla">আইনী সহায়তার জন্য অ্যাকাউন্ট তৈরি করুন</p>
-      </div>
-
-      <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700 font-bangla">
-        <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
-        <p>ডেমো সিস্টেম — কোনো বাস্তব তথ্য জমা হচ্ছে না।</p>
+        <h2 className="text-2xl font-bold text-slate-900 font-heading">সেবাগ্রহীতা নিবন্ধন</h2>
+        <p className="mt-1 text-sm text-slate-600 font-bangla">আইনী সহায়তার জন্য আপনার অ্যাকাউন্ট তৈরি করুন</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

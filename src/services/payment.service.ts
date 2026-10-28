@@ -16,7 +16,7 @@ class PaymentService {
           totalAmount: amount + 15,
           paymentMethod: method,
           status: 'SUCCESS',
-          payerName: 'ডেমো সেবাগ্রহীতা',
+          payerName: 'মোঃ রহিম উল্লাহ',
           payerMobile,
           createdAt: new Date().toISOString(),
           isDemo: true,

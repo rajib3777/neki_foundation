@@ -25,8 +25,25 @@ import { RegisterLawyer } from '../pages/auth/RegisterLawyer';
 
 // Dashboard Pages
 import { BeneficiaryDashboard } from '../pages/beneficiary/BeneficiaryDashboard';
+import { BeneficiaryRequests } from '../pages/beneficiary/BeneficiaryRequests';
+import { BeneficiaryLawyers } from '../pages/beneficiary/BeneficiaryLawyers';
+import { BeneficiaryDocuments } from '../pages/beneficiary/BeneficiaryDocuments';
+import { BeneficiaryPayments } from '../pages/beneficiary/BeneficiaryPayments';
+import { BeneficiaryProfile } from '../pages/beneficiary/BeneficiaryProfile';
 import { LawyerDashboard } from '../pages/lawyer/LawyerDashboard';
+import { LawyerProfile } from '../pages/lawyer/LawyerProfile';
+import { LawyerRequests } from '../pages/lawyer/LawyerRequests';
+import { LawyerAvailability } from '../pages/lawyer/LawyerAvailability';
+import { LawyerDocuments } from '../pages/lawyer/LawyerDocuments';
+import { LawyerSettings } from '../pages/lawyer/LawyerSettings';
 import { AdminDashboard } from '../pages/admin/AdminDashboard';
+import { AdminLawyers } from '../pages/admin/AdminLawyers';
+import { AdminUsers } from '../pages/admin/AdminUsers';
+import { AdminRequests } from '../pages/admin/AdminRequests';
+import { AdminCMS } from '../pages/admin/AdminCMS';
+import { AdminReports } from '../pages/admin/AdminReports';
+import { AdminAuditLogs } from '../pages/admin/AdminAuditLogs';
+import { AdminSettings } from '../pages/admin/AdminSettings';
 
 const NotFound: React.FC = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#F5F3EF] text-center px-4">
@@ -67,18 +84,33 @@ export const AppRoutes: React.FC = () => (
     {/* Beneficiary Dashboard Routes */}
     <Route element={<DashboardLayout />}>
       <Route path="/beneficiary/dashboard" element={<BeneficiaryDashboard />} />
-      <Route path="/beneficiary/requests" element={<BeneficiaryDashboard />} />
+      <Route path="/beneficiary/requests" element={<BeneficiaryRequests />} />
+      <Route path="/beneficiary/lawyers" element={<BeneficiaryLawyers />} />
+      <Route path="/beneficiary/documents" element={<BeneficiaryDocuments />} />
+      <Route path="/beneficiary/payments" element={<BeneficiaryPayments />} />
+      <Route path="/beneficiary/profile" element={<BeneficiaryProfile />} />
     </Route>
 
     {/* Lawyer Dashboard Routes */}
     <Route element={<DashboardLayout />}>
       <Route path="/lawyer/dashboard" element={<LawyerDashboard />} />
-      <Route path="/lawyer/requests" element={<LawyerDashboard />} />
+      <Route path="/lawyer/profile" element={<LawyerProfile />} />
+      <Route path="/lawyer/requests" element={<LawyerRequests />} />
+      <Route path="/lawyer/availability" element={<LawyerAvailability />} />
+      <Route path="/lawyer/documents" element={<LawyerDocuments />} />
+      <Route path="/lawyer/settings" element={<LawyerSettings />} />
     </Route>
 
     {/* Admin Dashboard Routes */}
     <Route element={<DashboardLayout />}>
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/lawyers" element={<AdminLawyers />} />
+      <Route path="/admin/users" element={<AdminUsers />} />
+      <Route path="/admin/requests" element={<AdminRequests />} />
+      <Route path="/admin/cms" element={<AdminCMS />} />
+      <Route path="/admin/reports" element={<AdminReports />} />
+      <Route path="/admin/audit-logs" element={<AdminAuditLogs />} />
+      <Route path="/admin/settings" element={<AdminSettings />} />
       <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
     </Route>
 

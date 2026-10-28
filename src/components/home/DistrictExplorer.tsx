@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, ArrowRight } from 'lucide-react';
-
+import { ArrowRight, Building2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 
@@ -18,7 +17,7 @@ const divisionDataMap: Record<string, DivisionData> = {
     nameBn: 'ঢাকা বিভাগ',
     districtsCount: 13,
     lawyersCount: 18,
-    deskAddress: 'ঢাকা জজ কোর্ট সংলগ্ন, সুপ্রিম কোর্ট মেইন গেইট রোড, ঢাকা',
+    deskAddress: 'সুপ্রিম কোর্ট মেইন গেইট রোড, ঢাকা জজ কোর্ট সংলগ্ন, ঢাকা-১১০০',
     hotline: '০১৭০০-১12233',
     popularDistricts: ['ঢাকা', 'গাজীপুর', 'নারায়ণগঞ্জ', 'ফরিদপুর', 'টাঙ্গাইল', 'নরসিংদী']
   },
@@ -26,7 +25,7 @@ const divisionDataMap: Record<string, DivisionData> = {
     nameBn: 'চট্টগ্রাম বিভাগ',
     districtsCount: 11,
     lawyersCount: 14,
-    deskAddress: 'কোর্ট হিল রোড, জজ কোর্ট চত্বর, চট্টগ্রাম',
+    deskAddress: 'কোর্ট হিল রোড, জজ কোর্ট চত্বর, কোতোয়ালী, চট্টগ্রাম',
     hotline: '০১৭০০-২২৩৩৪৪',
     popularDistricts: ['চট্টগ্রাম', 'কক্সবাজার', 'কুমিল্লা', 'নোয়াখালী', 'ব্রাহ্মণবাড়িয়া']
   },
@@ -34,7 +33,7 @@ const divisionDataMap: Record<string, DivisionData> = {
     nameBn: 'রাজশাহী বিভাগ',
     districtsCount: 8,
     lawyersCount: 9,
-    deskAddress: 'কোর্ট রোড, জজ কোর্ট চত্বর, রাজশাহী',
+    deskAddress: 'কোর্ট রোড, আইনজীবী ভবন-১, বোয়ালিয়া, রাজশাহী',
     hotline: '০১৭০০-৩৩৪৪৫৫',
     popularDistricts: ['রাজশাহী', 'বগুড়া', 'পাবনা', 'সিরাজগঞ্জ', 'নওগাঁ']
   },
@@ -50,7 +49,7 @@ const divisionDataMap: Record<string, DivisionData> = {
     nameBn: 'বরিশাল বিভাগ',
     districtsCount: 6,
     lawyersCount: 6,
-    deskAddress: 'সদর রোড, জজ কোর্ট এলাকা, বরিশাল',
+    deskAddress: 'সদর রোড, জজ কোর্ট এলাকা, কোতোয়ালী, বরিশাল',
     hotline: '০১৭০০-৫৫৬৬৭৭',
     popularDistricts: ['বরিশাল', 'পটুয়াখালী', 'ভোলা', 'পিরোজপুর']
   },
@@ -58,7 +57,7 @@ const divisionDataMap: Record<string, DivisionData> = {
     nameBn: 'সিলেট বিভাগ',
     districtsCount: 4,
     lawyersCount: 7,
-    deskAddress: 'কোর্ট পয়েন্ট, জজ কোর্ট রোড, সিলেট',
+    deskAddress: 'কোর্ট পয়েন্ট, জজ কোর্ট রোড, বন্দরবাজার, সিলেট',
     hotline: '০১৭০০-৬৬৭৭৮৮',
     popularDistricts: ['সিলেট', 'মৌলভীবাজার', 'হবিগঞ্জ', 'সুনামগঞ্জ']
   },
@@ -66,7 +65,7 @@ const divisionDataMap: Record<string, DivisionData> = {
     nameBn: 'রংপুর বিভাগ',
     districtsCount: 8,
     lawyersCount: 6,
-    deskAddress: 'কাচারি বাজার, জজ কোর্ট রোড, রংপুর',
+    deskAddress: 'কাচারি বাজার, জেলা জজ কোর্ট লেন, রংপুর',
     hotline: '০১৭০০-৭৭৮৮৯৯',
     popularDistricts: ['রংপুর', 'দিনাজপুর', 'গাইবান্ধা', 'কুড়িগ্রাম']
   },
@@ -87,15 +86,17 @@ export const DistrictExplorer: React.FC = () => {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 font-bangla">
-      <div className="text-center space-y-2">
-        <span className="px-4 py-1.5 bg-amber-100 text-[#D97706] text-xs font-bold rounded-full border border-amber-300 font-sans">
-          দেশব্যাপী আইনী নেটওয়ার্ক
-        </span>
-        <h2 className="text-3xl sm:text-4xl font-bold font-heading text-gray-900 leading-normal">
+      <div className="text-center flex flex-col items-center">
+        <div className="mb-3">
+          <span className="inline-flex items-center px-4 py-1.5 bg-emerald-100 text-[#064E3B] text-xs font-bold rounded-full border border-emerald-300 font-sans">
+            দেশব্যাপী আইনী নেটওয়ার্ক
+          </span>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 leading-snug sm:leading-normal">
           ৮টি বিভাগের ৬৪ জেলা আইনী সহায়তা কেন্দ্র
         </h2>
-        <p className="text-sm text-gray-600 font-sans max-w-xl mx-auto">
-          বিভাগ ভিত্তিক প্যানেল আইনজীবী ও সরাসরি ডেক্স কার্যালয়ের তথ্য একনজরে দেখুন
+        <p className="text-sm text-slate-600 font-sans max-w-xl mx-auto pt-2">
+          বিভাগ ভিত্তিক অনুমোদিত প্যানেল আইনজীবী ও সরাসরি ডেক্স কার্যালয়ের তথ্য একনজরে দেখুন
         </p>
       </div>
 
@@ -105,56 +106,58 @@ export const DistrictExplorer: React.FC = () => {
           <button
             key={divName}
             onClick={() => setSelectedDivision(divName)}
-            className={`px-4 py-2.5 rounded-2xl text-xs font-bold font-heading transition-all duration-300 ${
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold font-heading transition-all duration-300 cursor-pointer ${
               selectedDivision === divName
-                ? 'bg-[#0F172A] text-amber-400 shadow-xl border border-amber-400/40 scale-105'
-                : 'glass-card text-gray-700 hover:bg-amber-100/50 hover:text-[#D97706]'
+                ? 'bg-[#064E3B] text-amber-300 shadow-xl border border-emerald-500 scale-105'
+                : 'glass-card text-slate-700 hover:bg-emerald-50 hover:text-[#064E3B]'
             }`}
           >
-            {divName}
+            {divName} বিভাগ
           </button>
         ))}
       </div>
 
       {/* Selected Division Card */}
-      <div className="glass-card rounded-3xl p-8 shadow-2xl border border-amber-500/20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div className="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
         <div className="lg:col-span-7 space-y-5">
-          <div className="flex items-center gap-3">
-            <span className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold">
-              <MapPin className="w-5 h-5" />
+          <div className="flex items-center gap-3.5">
+            <span className="w-11 h-11 rounded-2xl bg-emerald-100 text-[#064E3B] flex items-center justify-center font-bold border border-emerald-300">
+              <Building2 className="w-6 h-6" />
             </span>
             <div>
-              <h3 className="text-2xl font-bold font-heading text-gray-900 leading-normal">
+              <h3 className="text-2xl font-bold font-heading text-slate-900 leading-normal">
                 {current.nameBn} আইনী সহায়তা ডেক্স
               </h3>
-              <p className="text-xs text-[#D97706] font-sans font-bold">
-                {current.districtsCount}টি জেলা • {current.lawyersCount}+ প্যানেল আইনজীবী সক্রিয়
+              <p className="text-xs text-[#064E3B] font-sans font-bold flex items-center gap-2">
+                <span>{current.districtsCount}টি জেলা কভারেজ</span>
+                <span>•</span>
+                <span>{current.lawyersCount}+ প্যানেল আইনজীবী সক্রিয়</span>
               </p>
             </div>
           </div>
 
-          <div className="space-y-3 text-xs text-gray-700 font-sans border-t border-amber-500/15 pt-4">
+          <div className="space-y-3 text-xs text-slate-700 font-sans border-t border-slate-100 pt-4">
             <p className="flex items-start gap-2">
-              <strong className="text-gray-900 font-heading shrink-0">কার্যালয় ঠিকানা:</strong>
+              <strong className="text-slate-900 font-heading shrink-0">কার্যালয় ঠিকানা:</strong>
               <span>{current.deskAddress}</span>
             </p>
             <p className="flex items-center gap-2">
-              <strong className="text-gray-900 font-heading shrink-0">জরুরি হটলাইন:</strong>
-              <span className="font-mono font-bold text-[#D97706]">{current.hotline}</span>
+              <strong className="text-slate-900 font-heading shrink-0">বিভাগীয় হটলাইন:</strong>
+              <span className="font-mono font-bold text-[#064E3B]">{current.hotline}</span>
             </p>
           </div>
 
           <div className="space-y-2">
-            <p className="text-xs font-bold text-gray-500 font-sans uppercase tracking-wider">
-              প্রধান জেলাসমূহ:
+            <p className="text-xs font-bold text-slate-500 font-sans uppercase tracking-wider">
+              প্রধান জেলাসমূহের আইনজীবী তালিকা:
             </p>
             <div className="flex flex-wrap gap-2">
               {current.popularDistricts.map((district) => (
                 <button
                   key={district}
                   onClick={() => navigate(`/lawyers?district=${encodeURIComponent(district)}`)}
-                  className="px-3 py-1 bg-amber-100/70 hover:bg-amber-200 text-[#D97706] rounded-xl text-xs font-bold font-sans transition-colors"
+                  className="px-3 py-1 bg-slate-100 hover:bg-emerald-100/70 text-slate-800 hover:text-[#064E3B] rounded-xl text-xs font-bold font-sans transition-colors cursor-pointer"
                 >
                   {district} →
                 </button>
@@ -163,18 +166,19 @@ export const DistrictExplorer: React.FC = () => {
           </div>
         </div>
 
-        <div className="lg:col-span-5 bg-[#0F172A] text-white rounded-2xl p-6 space-y-4 shadow-xl border border-amber-400/30 text-center">
-          <p className="text-xs font-bold text-amber-400 uppercase tracking-widest font-sans">
+        <div className="lg:col-span-5 bg-gradient-to-br from-[#064E3B] to-[#0F172A] text-white rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl border border-emerald-500/30 text-center">
+          <p className="text-xs font-bold text-amber-300 uppercase tracking-widest font-sans">
             {current.nameBn} থেকে আইনজীবী খুঁজছেন?
           </p>
-          <p className="text-sm text-slate-200 font-sans leading-relaxed">
-            আপনার জেলা নির্বাচন করে অবিলম্বে অভিজ্ঞতা ও বিশেষজ্ঞতার ভিত্তিতে প্যানেল আইনজীবী নির্বাচন করুন।
+          <p className="text-sm text-emerald-100 font-sans leading-relaxed">
+            আপনার জেলা ও বিরোধের ধরন নির্বাচন করে অবিলম্বে অভিজ্ঞতা ও বিশেষজ্ঞতার ভিত্তিতে প্যানেল আইনজীবী নির্ধারণ করুন।
           </p>
           <Button
             variant="gold"
             size="md"
             isFullWidth
             onClick={() => navigate(`/lawyers?district=${encodeURIComponent(current.popularDistricts[0])}`)}
+            className="font-bold shadow-lg"
           >
             {current.nameBn} আইনজীবী তালিকা দেখুন
             <ArrowRight className="w-4 h-4 ml-2" />

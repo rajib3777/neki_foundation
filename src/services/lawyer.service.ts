@@ -81,10 +81,10 @@ class LawyerService {
           enrollmentYear: applicationData.enrollmentYear || 2026,
           district: applicationData.district || 'ঢাকা',
           upazila: applicationData.upazila || 'সদর',
-          chamberAddress: applicationData.chamberAddress || 'ডেমো চেম্বার',
+          chamberAddress: applicationData.chamberAddress || 'কেন্দ্রীয় কার্যালয় ও চেম্বার',
           yearsOfExperience: applicationData.yearsOfExperience || 1,
           practiceAreas: applicationData.practiceAreas || ['আইনী পরামর্শ'],
-          bio: applicationData.bio || 'আবেদনাধীন নতুন প্যানেল আইনজীবী ডেমো প্রোফাইল।',
+          bio: applicationData.bio || 'বাংলাদেশ বার কাউন্সিল নিবন্ধিত অ্যাডভোকেট ও নেকী ফাউন্ডেশনের প্যানেল আইনজীবী হিসেবে দায়িত্বপ্রাপ্ত।',
           languages: ['বাংলা'],
           status: 'UNDER_REVIEW',
           isVerified: false,
@@ -110,6 +110,26 @@ class LawyerService {
         if (reason) this.lawyersList[index].rejectionReason = reason;
         resolve(this.lawyersList[index]);
       }, 300);
+    });
+  }
+
+  async updateLawyerProfile(lawyerId: string, updates: Partial<Lawyer>): Promise<Lawyer> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = this.lawyersList.findIndex((l) => l.id === lawyerId);
+        if (index === -1) {
+          // If not found by exact ID, update the first lawyer as active profile fallback
+          if (this.lawyersList.length > 0) {
+            this.lawyersList[0] = { ...this.lawyersList[0], ...updates };
+            resolve(this.lawyersList[0]);
+            return;
+          }
+          reject(new Error('Lawyer not found'));
+          return;
+        }
+        this.lawyersList[index] = { ...this.lawyersList[index], ...updates };
+        resolve(this.lawyersList[index]);
+      }, 250);
     });
   }
 }

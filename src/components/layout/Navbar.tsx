@@ -1,123 +1,182 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown, Scale, User, LogOut } from 'lucide-react';
+import { 
+  Menu, 
+  X, 
+  ChevronDown, 
+  Scale, 
+  User, 
+  LogOut, 
+  Phone, 
+  Mail, 
+  Clock, 
+  MessageCircle,
+  FileCheck2
+} from 'lucide-react';
 import { siteConfig } from '../../config/site.config';
-import { headerNavConfig } from '../../config/navigation.config';
+import { imageConfig } from '../../config/image.config';
 import { authService } from '../../services/auth.service';
-import type { UserRole, User as UserType } from '../../types';
-import { Button } from '../ui/Button';
+import type { User as UserType } from '../../types';
 
 export const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<UserType | null>(null);
-  const [roleSwitcherOpen, setRoleSwitcherOpen] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
-
-  const isHeroPage = location.pathname === '/';
 
   useEffect(() => {
     authService.getCurrentUser().then(setCurrentUser);
   }, [location.pathname]);
 
+  // Close mobile menu on route change
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleRoleSwitch = async (role: UserRole) => {
-    const user = await authService.switchRole(role);
-    setCurrentUser(user);
-    setRoleSwitcherOpen(false);
-    if (role === 'BENEFICIARY') navigate('/beneficiary/dashboard');
-    else if (role === 'LAWYER') navigate('/lawyer/dashboard');
-    else if (role === 'ADMIN') navigate('/admin/dashboard');
-    else navigate('/');
-  };
+    setMobileMenuOpen(false);
+    setActiveDropdown(null);
+  }, [location.pathname]);
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
 
-  // On hero page: transparent when at top, glass when scrolled
-  // On other pages: always solid
-  const transparent = isHeroPage && !isScrolled;
+  const navLinks = [
+    { labelBn: 'হোম', path: '/' },
+    { labelBn: 'আমাদের কথা', path: '/about' },
+    {
+      labelBn: 'কার্যক্রম ও সেবা',
+      path: '/services',
+      children: [
+        { labelBn: 'বিনামূল্যে আইনী সহায়তা', path: '/services/legal-assistance' },
+        { labelBn: 'বৃক্ষরোপণ কর্মসূচি', path: '/services/tree-plantation' },
+        { labelBn: 'জরুরি রক্তদান উদ্যোগ', path: '/services/blood-donation' },
+        { labelBn: 'সামাজিক পুনর্বাসন ও সুরক্ষা', path: '/services/social-protection' },
+      ],
+    },
+    { labelBn: 'আইনজীবী তালিকা', path: '/lawyers' },
+    { labelBn: 'স্বচ্ছতা ও রিপোর্ট', path: '/transparency' },
+    { labelBn: 'যোগাযোগ', path: '/contact' },
+  ];
 
   return (
     <>
-      {/* SINGLE FIXED NAVBAR */}
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-400 ${
-          transparent
-            ? 'bg-transparent border-b border-white/10'
-            : 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-amber-500/20'
-        }`}
-        style={{ transition: 'background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease' }}
-      >
+      {/* 1. TOP ANNOUNCEMENT & CONTACT BAR */}
+      <div className="bg-[#064E3B] text-emerald-100 text-xs font-bangla border-b border-emerald-800/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <div className="flex flex-wrap items-center justify-between gap-y-1.5">
+            
+            {/* Left: Hotline & Email */}
+            <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+              <span className="flex items-center gap-1.5 font-medium">
+                <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span className="text-emerald-200/90 hidden sm:inline">২৪/৭ হটলাইন:</span>
+                <a 
+                  href="tel:+8801800000000" 
+                  className="font-bold text-white hover:text-amber-300 transition-colors font-mono tracking-tight"
+                >
+                  {siteConfig.contact.phoneBn}
+                </a>
+              </span>
+
+              <span className="text-emerald-600/70 hidden sm:inline">•</span>
+
+              <span className="hidden md:flex items-center gap-1.5 text-emerald-200/90">
+                <Mail className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                <a 
+                  href={`mailto:${siteConfig.contact.email}`} 
+                  className="hover:text-white transition-colors"
+                >
+                  {siteConfig.contact.email}
+                </a>
+              </span>
+
+              <span className="text-emerald-600/70 hidden lg:inline">•</span>
+
+              <span className="hidden lg:flex items-center gap-1.5 text-emerald-300/80 text-[11px]">
+                <FileCheck2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span>আরজেএসসি নিবন্ধন: NF-BD-2026/0491</span>
+              </span>
+            </div>
+
+            {/* Right: Office Hours & WhatsApp Direct */}
+            <div className="flex items-center gap-3 sm:gap-4 text-[11px] sm:text-xs">
+              <span className="hidden sm:flex items-center gap-1.5 text-emerald-200/80">
+                <Clock className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                <span>{siteConfig.contact.workingHoursBn}</span>
+              </span>
+
+              <span className="text-emerald-600/70 hidden sm:inline">•</span>
+
+              <a
+                href="https://wa.me/8801800000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-white hover:text-amber-300 transition-colors bg-emerald-800/80 hover:bg-emerald-800 px-2.5 py-0.5 rounded-full font-medium"
+              >
+                <MessageCircle className="w-3.5 h-3.5 text-green-400 shrink-0" />
+                <span>হোয়াটসঅ্যাপ সহায়তা</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* 2. MAIN HEADER NAVBAR */}
+      <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200/90 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[72px] gap-4">
 
-            {/* Brand Logo */}
-            <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center border-2 transition-all duration-300
-                ${transparent
-                  ? 'bg-white/15 text-amber-400 border-amber-400/60 group-hover:bg-white/25'
-                  : 'bg-[#0F172A] text-amber-400 border-amber-400/50 group-hover:bg-[#D97706] group-hover:text-white'
-                }`}
-              >
-                <Scale className="w-5 h-5" />
-              </div>
-              <div className="leading-none space-y-0.5">
-                <span className={`text-lg font-bold font-heading block leading-none transition-colors ${transparent ? 'text-white' : 'text-[#0F172A]'}`}>
+            {/* Logo Mark */}
+            <Link to="/" className="flex items-center gap-3 shrink-0 group">
+              <img
+                src={imageConfig.logo}
+                alt="নেকী ফাউন্ডেশন লোগো"
+                className="w-12 h-12 rounded-full object-cover shadow-sm border-2 border-emerald-700/40 group-hover:scale-105 transition-transform bg-white"
+              />
+              <div className="flex flex-col">
+                <span className="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight leading-none">
                   {siteConfig.nameBn}
                 </span>
-                <span className="text-[9px] text-amber-500 font-extrabold uppercase tracking-widest block font-sans">
-                  {siteConfig.nameEn}
+                <span className="text-[10px] sm:text-[11px] text-emerald-800 font-semibold tracking-wider uppercase font-sans mt-1 leading-none">
+                  {siteConfig.nameEn} • বালুড়া, গদখালী, যশোর
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation — single line, compact */}
-            <nav className="hidden xl:flex items-center gap-0.5 shrink-0">
-              {headerNavConfig.map((item) => {
+            {/* Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center gap-1">
+              {navLinks.map((item) => {
                 const active = isActive(item.path);
+
                 if (item.children) {
                   return (
                     <div
-                      key={item.labelEn}
+                      key={item.labelBn}
                       className="relative"
-                      onMouseEnter={() => setActiveDropdown(item.labelEn)}
+                      onMouseEnter={() => setActiveDropdown(item.labelBn)}
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <button
-                        className={`flex items-center gap-1 px-3 py-2 text-[13px] font-bold rounded-xl whitespace-nowrap transition-all font-bangla
-                          ${transparent
-                            ? active
-                              ? 'text-amber-400 bg-white/10'
-                              : 'text-white/90 hover:text-amber-400 hover:bg-white/10'
-                            : active
-                              ? 'text-[#D97706] bg-amber-100/60'
-                              : 'text-gray-700 hover:text-[#D97706] hover:bg-amber-50'
-                          }`}
+                        className={`flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-lg transition-colors font-bangla ${
+                          active
+                            ? 'text-[#064E3B] bg-emerald-50 font-bold'
+                            : 'text-slate-700 hover:text-[#064E3B] hover:bg-slate-50'
+                        }`}
                       >
-                        {item.labelBn}
-                        <ChevronDown className="w-3 h-3 opacity-60" />
+                        <span>{item.labelBn}</span>
+                        <ChevronDown className="w-4 h-4 opacity-70" />
                       </button>
 
-                      {activeDropdown === item.labelEn && (
-                        <div className="absolute left-0 top-full pt-2 w-52 z-50">
-                          <div className="bg-white/98 backdrop-blur-xl rounded-2xl border border-amber-500/20 shadow-2xl py-1.5 overflow-hidden">
+                      {activeDropdown === item.labelBn && (
+                        <div className="absolute left-0 top-full pt-1.5 w-64 z-50 animate-in fade-in-50 duration-150">
+                          <div className="bg-white rounded-xl border border-slate-200 shadow-xl py-1.5 overflow-hidden">
                             {item.children.map((child) => (
                               <Link
                                 key={child.path}
                                 to={child.path}
-                                className="block px-4 py-2 text-sm font-semibold text-gray-700 font-bangla hover:bg-amber-50 hover:text-[#D97706] transition-colors"
+                                className="block px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-700 hover:text-[#064E3B] hover:bg-emerald-50/70 transition-colors font-bangla"
                               >
                                 {child.labelBn}
                               </Link>
@@ -131,117 +190,85 @@ export const Navbar: React.FC = () => {
 
                 return (
                   <Link
-                    key={item.labelEn}
+                    key={item.labelBn}
                     to={item.path}
-                    className={`px-3 py-2 text-[13px] font-bold rounded-xl whitespace-nowrap transition-all font-bangla relative
-                      ${transparent
-                        ? active
-                          ? 'text-amber-400 bg-white/10'
-                          : 'text-white/90 hover:text-amber-400 hover:bg-white/10'
-                        : active
-                          ? 'text-[#D97706] bg-amber-100/60'
-                          : 'text-gray-700 hover:text-[#D97706] hover:bg-amber-50'
-                      }`}
+                    className={`px-3.5 py-2 text-sm font-medium rounded-lg transition-colors font-bangla ${
+                      active
+                        ? 'text-[#064E3B] bg-emerald-50 font-bold'
+                        : 'text-slate-700 hover:text-[#064E3B] hover:bg-slate-50'
+                    }`}
                   >
                     {item.labelBn}
-                    {active && (
-                      <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[#D97706] rounded-full" />
-                    )}
                   </Link>
                 );
               })}
             </nav>
 
-            {/* Desktop Right Actions */}
-            <div className="hidden xl:flex items-center gap-2 shrink-0">
-
-              {/* Role Switcher (Demo) */}
-              <div className="relative">
-                <button
-                  onClick={() => setRoleSwitcherOpen(!roleSwitcherOpen)}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-[11px] font-bold border transition-all font-bangla whitespace-nowrap
-                    ${transparent
-                      ? 'border-white/30 text-white/80 bg-white/10 hover:bg-white/20'
-                      : 'border-amber-500/30 text-[#B45309] bg-amber-50/80 hover:bg-amber-100'
-                    }`}
-                >
-                  <User className="w-3.5 h-3.5" />
-                  রোল: {currentUser?.role || 'PUBLIC'}
-                  <ChevronDown className="w-3 h-3" />
-                </button>
-
-                {roleSwitcherOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-52 bg-white/98 backdrop-blur-xl border border-amber-500/20 rounded-2xl shadow-2xl z-50 py-1.5 text-xs font-bangla overflow-hidden">
-                    <p className="px-3 py-1.5 font-bold text-gray-400 text-[10px] uppercase tracking-wider">রোল সুইচ করুন:</p>
-                    {[
-                      { role: 'PUBLIC' as UserRole, label: 'পাবলিক দর্শনার্থী', color: 'text-gray-700 hover:bg-gray-50' },
-                      { role: 'BENEFICIARY' as UserRole, label: 'সেবাগ্রহীতা', color: 'text-[#0F172A] font-bold hover:bg-amber-50' },
-                      { role: 'LAWYER' as UserRole, label: 'প্যানেল আইনজীবী', color: 'text-[#B45309] font-bold hover:bg-amber-50' },
-                      { role: 'ADMIN' as UserRole, label: 'এডমিন', color: 'text-blue-700 font-bold hover:bg-blue-50' },
-                    ].map(({ role, label, color }) => (
-                      <button
-                        key={role}
-                        onClick={() => handleRoleSwitch(role)}
-                        className={`w-full text-left px-3.5 py-2 ${color} transition-colors`}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
+            {/* Desktop CTA & Auth Actions */}
+            <div className="hidden lg:flex items-center gap-3 shrink-0">
               {currentUser && currentUser.role !== 'PUBLIC' ? (
-                <>
-                  <Button
-                    size="sm"
-                    variant={transparent ? 'outline' : 'outline'}
-                    className={transparent ? 'border-white/50 text-white hover:bg-white/15' : ''}
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium font-bangla">
+                    <User className="w-3.5 h-3.5 text-emerald-700" />
+                    <span>{currentUser.name}</span>
+                    <span className="text-[10px] text-slate-500 font-mono">({currentUser.role})</span>
+                  </div>
+
+                  <button
                     onClick={() => {
                       if (currentUser.role === 'BENEFICIARY') navigate('/beneficiary/dashboard');
                       else if (currentUser.role === 'LAWYER') navigate('/lawyer/dashboard');
                       else navigate('/admin/dashboard');
                     }}
+                    className="px-3.5 py-2 rounded-lg bg-[#064E3B] hover:bg-[#053e2f] text-white text-xs font-semibold font-bangla transition-colors"
                   >
                     ড্যাশবোর্ড
-                  </Button>
+                  </button>
+
                   <button
                     onClick={async () => {
                       await authService.logout();
                       setCurrentUser(null);
                       navigate('/');
                     }}
-                    className={`p-2 rounded-xl transition-colors ${transparent ? 'text-white/70 hover:text-white hover:bg-white/10' : 'text-gray-500 hover:text-red-600 hover:bg-red-50'}`}
+                    className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                    title="লগআউট"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
-                </>
+                </div>
               ) : (
-                <>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={transparent ? 'border-white/50 text-white hover:bg-white/15' : ''}
-                    onClick={() => navigate('/auth/login')}
+                <div className="flex items-center gap-2.5">
+                  <Link
+                    to="/auth/login"
+                    className="px-3.5 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors font-bangla"
                   >
                     লগইন
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="gold"
-                    onClick={() => navigate('/legal-assistance/apply')}
+                  </Link>
+
+                  <Link
+                    to="/legal-assistance/apply"
+                    className="px-4 py-2 text-sm font-semibold text-white bg-[#064E3B] hover:bg-[#053e2f] rounded-lg shadow-xs transition-colors font-bangla"
                   >
-                    আইনী সহায়তা নিন
-                  </Button>
-                </>
+                    সহায়তা আবেদন
+                  </Link>
+                </div>
               )}
             </div>
 
-            {/* Mobile Hamburger */}
-            <div className="xl:hidden flex items-center">
+            {/* Mobile Header Buttons */}
+            <div className="lg:hidden flex items-center gap-2">
+              <Link
+                to="/legal-assistance/apply"
+                className="px-3 py-1.5 text-xs font-semibold text-white bg-[#064E3B] hover:bg-[#053e2f] rounded-lg transition-colors font-bangla"
+              >
+                সহায়তা
+              </Link>
+              
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`p-2.5 rounded-xl transition-colors ${transparent ? 'text-white hover:bg-white/15' : 'text-gray-700 hover:bg-amber-50'}`}
+                className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                aria-label="মেনু টগল করুন"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -250,46 +277,82 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Dropdown Drawer */}
         {mobileMenuOpen && (
-          <div className="xl:hidden bg-white/98 backdrop-blur-xl border-t border-amber-500/15 shadow-2xl">
-            <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
-              {headerNavConfig.map((item) => (
-                <React.Fragment key={item.labelEn}>
+          <div className="lg:hidden bg-white border-t border-slate-200 shadow-xl">
+            <div className="max-w-7xl mx-auto px-4 py-4 space-y-2">
+              
+              {/* Mobile Hotline Quick Card */}
+              <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center justify-between text-xs font-bangla mb-3">
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-[#064E3B]" />
+                  <div>
+                    <p className="text-slate-600 text-[11px]">জরুরি আইনী হটলাইন</p>
+                    <a href="tel:+8801800000000" className="font-bold text-[#064E3B] font-mono">
+                      {siteConfig.contact.phoneBn}
+                    </a>
+                  </div>
+                </div>
+                <a
+                  href="https://wa.me/8801800000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1 bg-green-600 text-white rounded-md text-[11px] font-bold flex items-center gap-1"
+                >
+                  <MessageCircle className="w-3 h-3" />
+                  হোয়াটসঅ্যাপ
+                </a>
+              </div>
+
+              {/* Navigation Links */}
+              {navLinks.map((item) => (
+                <div key={item.labelBn} className="space-y-1">
                   <Link
                     to={item.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl transition-colors font-bangla ${
-                      isActive(item.path) ? 'text-[#D97706] bg-amber-100/70' : 'text-gray-800 hover:bg-gray-50'
+                    className={`block px-3 py-2 text-sm font-medium rounded-lg font-bangla transition-colors ${
+                      isActive(item.path)
+                        ? 'text-[#064E3B] bg-emerald-50 font-bold'
+                        : 'text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     {item.labelBn}
                   </Link>
                   {item.children && (
-                    <div className="ml-4 pl-3 border-l-2 border-amber-400/50 space-y-1 mb-1">
+                    <div className="pl-4 ml-2 border-l-2 border-emerald-200 space-y-1">
                       {item.children.map((child) => (
                         <Link
                           key={child.path}
                           to={child.path}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block px-3 py-2 text-xs font-semibold text-gray-600 hover:text-[#D97706] font-bangla"
+                          className="block px-3 py-1.5 text-xs text-slate-600 hover:text-[#064E3B] font-bangla"
                         >
                           {child.labelBn}
                         </Link>
                       ))}
                     </div>
                   )}
-                </React.Fragment>
+                </div>
               ))}
 
-              <div className="pt-4 border-t border-gray-100 space-y-2">
-                <Button isFullWidth variant="gold" onClick={() => { setMobileMenuOpen(false); navigate('/legal-assistance/apply'); }}>
-                  আইনী সহায়তা নিন
-                </Button>
-                <Button isFullWidth variant="outline" onClick={() => { setMobileMenuOpen(false); navigate('/auth/login'); }}>
-                  লগইন / ড্যাশবোর্ড
-                </Button>
+              {/* Mobile Auth Actions */}
+              <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                <Link
+                  to="/legal-assistance/apply"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-2.5 px-4 bg-[#064E3B] text-white rounded-lg text-sm font-semibold font-bangla"
+                >
+                  বিনামূল্যে আইনী সহায়তা আবেদন
+                </Link>
+                <Link
+                  to="/auth/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full text-center py-2.5 px-4 border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg text-sm font-medium font-bangla"
+                >
+                  লগইন
+                </Link>
               </div>
+
             </div>
           </div>
         )}

@@ -35,7 +35,7 @@ class LegalAidService {
           id: `req-${Date.now()}`,
           trackingNumber: tracking,
           beneficiaryId: payload.beneficiaryId || 'user-beneficiary-01',
-          beneficiaryName: payload.beneficiaryName || 'রহিম উল্লাহ (ডেমো সেবাগ্রহীতা)',
+          beneficiaryName: payload.beneficiaryName || 'মোঃ রহিম উল্লাহ (সেবাগ্রহীতা)',
           beneficiaryMobile: payload.beneficiaryMobile || '01700-000001',
           district: payload.district || 'ঢাকা',
           legalCategory: payload.legalCategory || 'সাধারণ আইনী পরামর্শ',

@@ -9,10 +9,10 @@ export const siteConfig = {
   descriptionEn: 'Neki Foundation is a modern non-profit social welfare organization dedicated to legal assistance, environmental protection, blood donation, and social protection.',
   
   contact: {
-    addressBn: 'সদর দপ্তর (ডেমো ঠিকানা), বাড়ি-১২, রোড-০৫, ধানমন্ডি, ঢাকা-১২০৫',
-    addressEn: 'Headquarters (Demo Address), House-12, Road-05, Dhanmondi, Dhaka-1205',
-    phoneBn: '+880 1800-000000 (ডেমো হেল্পলাইন)',
-    phoneEn: '+880 1800-000000 (Demo Helpline)',
+    addressBn: 'প্রধান কার্যালয়: বালুড়া, গদখালী, ঝিকরগাছা, যশোর, বাংলাদেশ',
+    addressEn: 'Headquarters: Baluda, Gadkhali, Jhikargachha, Jashore, Bangladesh',
+    phoneBn: '+880 1800-000000',
+    phoneEn: '+880 1800-000000',
     email: 'info.demo@nekifoundation.org',
     workingHoursBn: 'রবিবার - বৃহস্পতিবার: সকাল ৯:০০ - বিকাল ৫:০০',
     workingHoursEn: 'Sunday - Thursday: 9:00 AM - 5:00 PM',

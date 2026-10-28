@@ -12,28 +12,28 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="space-y-1.5 w-full">
         {label && (
-          <label className="block text-xs font-bold text-gray-800 font-bangla tracking-wide">
+          <label className="block text-xs sm:text-sm font-bold text-slate-800 font-bangla tracking-wide">
             {label}
-            {isRequired && <span className="text-red-500 ml-1">*</span>}
+            {isRequired && <span className="text-red-500 ml-1 font-bold">*</span>}
           </label>
         )}
         <textarea
           ref={ref}
           className={`
-            w-full px-4 py-3 text-sm text-gray-900 bg-white border rounded-xl
-            placeholder:text-gray-400 placeholder:font-sans
-            transition-all duration-150 focus:outline-none focus:ring-2
+            w-full px-4 py-3 text-sm font-medium text-slate-900 bg-white border rounded-xl font-bangla
+            placeholder:text-slate-400 placeholder:font-bangla
+            transition-all duration-200 focus:outline-none focus:ring-2
             resize-y min-h-[100px]
             ${error
               ? 'border-red-400 focus:border-red-500 focus:ring-red-200 bg-red-50/30'
-              : 'border-gray-200 focus:border-[#064E3B] focus:ring-[#064E3B]/20 hover:border-gray-300'
+              : 'border-slate-300 focus:border-[#064E3B] focus:ring-[#064E3B]/20 hover:border-slate-400 shadow-xs'
             }
             ${className}
           `}
           {...props}
         />
-        {error && <p className="text-xs text-red-600 font-sans font-bold">⚠ {error}</p>}
-        {helperText && !error && <p className="text-[11px] text-gray-500 font-sans">{helperText}</p>}
+        {error && <p className="text-xs text-red-600 font-bangla font-semibold">⚠ {error}</p>}
+        {helperText && !error && <p className="text-xs text-slate-500 font-bangla">{helperText}</p>}
       </div>
     );
   }

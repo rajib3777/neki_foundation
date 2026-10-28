@@ -1,104 +1,138 @@
-@import url('https://fonts.maateen.me/solaiman-lipi/font.css');
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'SolaimanLipi', 'Hind Siliguri', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-bangla: 'SolaimanLipi', 'Hind Siliguri', sans-serif;
-  --font-heading: 'SolaimanLipi', 'Tiro Bangla', 'Hind Siliguri', serif;
+  --font-sans: 'Hind Siliguri', 'SolaimanLipi', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-bangla: 'Hind Siliguri', 'SolaimanLipi', sans-serif;
+  --font-heading: 'Tiro Bangla', 'SolaimanLipi', 'Hind Siliguri', serif;
 
-  --color-brand-navy-950: #0F172A;
-  --color-brand-navy-900: #1E293B;
-  --color-brand-navy-800: #334155;
+  --color-brand-emerald-950: #022c22;
+  --color-brand-emerald-900: #064e3b;
+  --color-brand-emerald-800: #065f46;
+  --color-brand-emerald-700: #047857;
+  --color-brand-emerald-600: #059669;
+  --color-brand-emerald-500: #10b981;
+  --color-brand-emerald-100: #d1fae5;
+  --color-brand-emerald-50: #ecfdf5;
 
-  --color-brand-gold-700: #B45309;
-  --color-brand-gold-600: #D97706;
-  --color-brand-gold-500: #F59E0B;
-  --color-brand-gold-400: #FBBF24;
-  --color-brand-gold-50: #FFFBEB;
+  --color-brand-navy-950: #090d16;
+  --color-brand-navy-900: #0f172a;
+  --color-brand-navy-800: #1e293b;
 
-  --color-brand-cream-100: #F4EFE6;
-  --color-brand-cream-50: #FAF7F2;
+  --color-brand-gold-700: #b45309;
+  --color-brand-gold-600: #d97706;
+  --color-brand-gold-500: #f59e0b;
+  --color-brand-gold-400: #fbbf24;
+  --color-brand-gold-100: #fef3c7;
+  --color-brand-gold-50: #fffbeb;
 
-  --color-brand-slate-900: #0F172A;
-  --color-brand-slate-800: #1E293B;
+  --color-brand-cream-100: #f4efe6;
+  --color-brand-cream-50: #faf8f5;
+
+  --color-brand-slate-900: #0f172a;
+  --color-brand-slate-800: #1e293b;
   --color-brand-slate-700: #334155;
-  --color-brand-slate-500: #64748B;
-  --color-brand-slate-100: #F1F5F9;
+  --color-brand-slate-500: #64748b;
+  --color-brand-slate-100: #f1f5f9;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #FAF7F2;
-  color: #0F172A;
-  line-height: 1.8;
+  background-color: #ffffff;
+  color: #1e293b;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Fix Bangla Overlapping Headings with Generous Line Height */
-h1, h2, h3, h4, .font-heading {
+/* Bengali Typography Hierarchy - Global Fix for Overlaps, Multi-line collisions & Clipped Matras */
+h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: var(--font-heading);
-  line-height: 1.55 !important;
-  letter-spacing: 0.01em;
+  letter-spacing: 0 !important;
+  line-height: 1.42 !important;
+  padding-top: 0.08em;
+  padding-bottom: 0.08em;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 h1 {
-  line-height: 1.52 !important;
-  padding-top: 0.1em;
-  padding-bottom: 0.3em;
-  margin-bottom: 0.25em;
+  line-height: 1.35 !important;
 }
 
 h2 {
-  line-height: 1.50 !important;
-  padding-top: 0.08em;
-  padding-bottom: 0.2em;
-  margin-bottom: 0.15em;
+  line-height: 1.4 !important;
 }
 
 h3, h4 {
-  line-height: 1.52 !important;
-  padding-top: 0.05em;
-  padding-bottom: 0.12em;
+  line-height: 1.45 !important;
 }
 
-
-/* Light Frosted Glassmorphism Cards - NO BLACK */
+/* Ultra-Refined Light Glass Cards */
 .glass-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(217, 119, 6, 0.2);
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 0 20px 0 rgba(217, 119, 6, 0.05);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
   background: #ffffff;
-  border-color: rgba(217, 119, 6, 0.45);
-  box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.1), 0 0 25px 0 rgba(217, 119, 6, 0.12);
+  border-color: rgba(217, 119, 6, 0.35);
+  box-shadow: 0 20px 35px -5px rgba(15, 23, 42, 0.08), 0 0 20px -2px rgba(217, 119, 6, 0.1);
+  transform: translateY(-3px);
+}
+
+/* Emerald Accent Glass Card */
+.glass-card-emerald {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  box-shadow: 0 10px 30px -4px rgba(6, 78, 59, 0.06);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-emerald:hover {
+  border-color: rgba(5, 150, 105, 0.5);
+  box-shadow: 0 20px 40px -4px rgba(6, 78, 59, 0.12);
   transform: translateY(-4px);
 }
 
-/* Dark Glassmorphism - For hero overlays */
+/* Dark Glassmorphism for Hero & Night Highlights */
 .glass-card-dark {
-  background: rgba(15, 23, 42, 0.80);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(245, 158, 11, 0.30);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
 /* Gold Gradient Text */
 .text-gold-gradient {
-  display: inline-block;
-  background: linear-gradient(135deg, #D97706 0%, #B45309 60%, #92400E 100%);
+  display: inline;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding-bottom: 0.08em;
   line-height: inherit !important;
+}
+
+/* Emerald Gradient Text */
+.text-emerald-gradient {
+  display: inline;
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #064e3b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: inherit !important;
+}
+
+/* Subtle Hero Pattern */
+.bg-hero-pattern {
+  background-image: radial-gradient(rgba(245, 158, 11, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 /* Animations */
@@ -107,47 +141,48 @@ h3, h4 {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
   }
 }
 
 .animate-float {
-  animation: floatSlow 5s ease-in-out infinite;
+  animation: floatSlow 4.5s ease-in-out infinite;
 }
 
-.pulse-dot {
-  width: 9px;
-  height: 9px;
-  background-color: #D97706;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
-  animation: pulse-animation 1.8s infinite;
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 
-@keyframes pulse-animation {
-  0% {
-    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(217, 119, 6, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
-  }
+.animate-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F2;
+  background: #faf8f5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D97706;
-  border-radius: 4px;
+  background: #cbd5e1;
+  border-radius: 6px;
+  border: 2px solid #faf8f5;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B45309;
+  background: #d97706;
+}
+
+/* Subtle selection color */
+::selection {
+  background-color: #fde68a;
+  color: #0f172a;
 }

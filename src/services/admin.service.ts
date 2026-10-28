@@ -12,7 +12,7 @@ class AdminService {
     });
   }
 
-  async logAction(action: string, resource: string, details: string, actor: string = 'এডমিন ডেমো ইউজার'): Promise<AuditLog> {
+  async logAction(action: string, resource: string, details: string, actor: string = 'সুপার এডমিন (হেড অফিস)'): Promise<AuditLog> {
     return new Promise((resolve) => {
       setTimeout(() => {
         const log: AuditLog = {

@@ -52,12 +52,11 @@ export const lawyerNavConfig: RoleDashboardNav[] = [
 
 export const adminNavConfig: RoleDashboardNav[] = [
   { labelBn: 'এডমিন ড্যাশবোর্ড', path: '/admin/dashboard', icon: 'LayoutDashboard' },
-  { labelBn: 'আইনজীবী আবেদন যাচাই', path: '/admin/lawyers', icon: 'UserPlus', badge: 'নতুন' },
-  { labelBn: 'অনুমোদিত আইনজীবী', path: '/admin/approved-lawyers', icon: 'ShieldCheck' },
-  { labelBn: 'সেবাগ্রহীতা তালিকা', path: '/admin/beneficiaries', icon: 'Users' },
-  { labelBn: 'আইনী সহায়তা অনুরোধ', path: '/admin/requests', icon: 'FileSpreadsheet' },
-  { labelBn: 'পেমেন্ট মনিটরিং', path: '/admin/payments', icon: 'DollarSign' },
-  { labelBn: 'সেবা ও কনটেন্ট', path: '/admin/services', icon: 'Sliders' },
-  { labelBn: 'সিস্টেম অডিট লগ', path: '/admin/audit-logs', icon: 'History' },
-  { labelBn: 'সেটিংস', path: '/admin/settings', icon: 'Settings' },
+  { labelBn: 'আইনজীবী যাচাই ও প্যানেল', path: '/admin/lawyers', icon: 'ShieldCheck', badge: 'নতুন' },
+  { labelBn: 'ইউজার ও সেবাগ্রহীতা', path: '/admin/users', icon: 'Users' },
+  { labelBn: 'মামলা ও আবেদন মনিটরিং', path: '/admin/requests', icon: 'FileSpreadsheet' },
+  { labelBn: 'কনটেন্ট ম্যানেজমেন্ট (CMS)', path: '/admin/cms', icon: 'FileText' },
+  { labelBn: 'রিপোর্ট ও ডেটা এক্সপোর্ট', path: '/admin/reports', icon: 'BarChart3' },
+  { labelBn: 'সিস্টেম অডিট ও নিরাপত্তা', path: '/admin/audit-logs', icon: 'History' },
+  { labelBn: 'প্লাটফর্ম সেটিংস', path: '/admin/settings', icon: 'Settings' },
 ];

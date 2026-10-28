@@ -7,7 +7,7 @@ import { authService } from '../../services/auth.service';
 import type { UserRole } from '../../types';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-import { ShieldAlert } from 'lucide-react';
+import { Mail, Lock, LogIn } from 'lucide-react';
 
 const loginSchema = z.object({
   emailOrMobile: z.string().min(1, 'ইমেইল বা মোবাইল নম্বর লিখুন'),
@@ -34,32 +34,31 @@ export const Login: React.FC = () => {
       else if (data.role === 'LAWYER') navigate('/lawyer/dashboard');
       else if (data.role === 'ADMIN') navigate('/admin/dashboard');
     } catch {
-      setSubmitError('লগইন সম্পন্ন হয়নি। পুনরায় চেষ্টা করুন।');
+      setSubmitError('লগইন সম্পন্ন হয়নি। তথ্য যাচাই করে পুনরায় চেষ্টা করুন।');
     }
   };
 
   return (
     <div className="space-y-6">
+      {/* Title & Subtitle */}
       <div>
-        <h2 className="text-xl font-bold text-gray-900 font-bangla">আপনার অ্যাকাউন্টে লগইন করুন</h2>
-        <p className="mt-1 text-xs text-gray-500 font-bangla">নেকী ফাউন্ডেশন পোর্টালে স্বাগতম</p>
-      </div>
-
-      {/* Demo Notice */}
-      <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700 font-bangla">
-        <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
-        <p>ডেমো পরিবেশ: যেকোনো ইমেইল ও পাসওয়ার্ড দিয়ে নির্বাচিত ভূমিকায় লগইন করা যাবে।</p>
+        <h2 className="text-2xl font-bold text-slate-900 font-heading">আপনার অ্যাকাউন্টে লগইন করুন</h2>
+        <p className="mt-1.5 text-sm text-slate-600 font-bangla">নেকী ফাউন্ডেশন আইনী সেবা ও কল্যাণ পোর্টালে স্বাগতম</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         {/* Role Selector */}
-        <div className="space-y-1">
-          <label className="block text-sm font-medium text-gray-700 font-bangla">অ্যাকাউন্টের ধরন নির্বাচন করুন</label>
-          <div className="grid grid-cols-3 gap-2">
+        <div className="space-y-2">
+          <label className="block text-xs sm:text-sm font-bold text-slate-800 font-bangla tracking-wide">
+            অ্যাকাউন্টের ধরন নির্বাচন করুন
+          </label>
+          <div className="grid grid-cols-3 gap-2.5">
             {(['BENEFICIARY', 'LAWYER', 'ADMIN'] as const).map((role) => (
               <label key={role} className="relative cursor-pointer">
                 <input type="radio" value={role} {...register('role')} className="sr-only peer" />
-                <div className="p-2.5 border-2 rounded-lg text-center text-xs font-semibold font-bangla transition-all peer-checked:border-[#1B4D3E] peer-checked:bg-[#E6F2EE] peer-checked:text-[#1B4D3E] border-gray-200 text-gray-600 hover:border-gray-300">
+                <div className="py-2.5 px-2 border-2 rounded-xl text-center text-xs sm:text-sm font-bold font-bangla transition-all 
+                  peer-checked:border-[#064E3B] peer-checked:bg-emerald-50/90 peer-checked:text-[#064E3B] peer-checked:shadow-sm
+                  border-slate-200 text-slate-700 bg-slate-50/60 hover:bg-slate-100/80 hover:border-slate-300">
                   {role === 'BENEFICIARY' ? 'সেবাগ্রহীতা' : role === 'LAWYER' ? 'আইনজীবী' : 'এডমিন'}
                 </div>
               </label>
@@ -67,10 +66,12 @@ export const Login: React.FC = () => {
           </div>
         </div>
 
+        {/* Credentials */}
         <Input
           label="ইমেইল বা মোবাইল নম্বর"
           type="text"
           isRequired
+          leftIcon={<Mail className="w-4 h-4 text-slate-400" />}
           placeholder="email@example.com অথবা 01700-000000"
           error={errors.emailOrMobile?.message}
           {...register('emailOrMobile')}
@@ -80,32 +81,42 @@ export const Login: React.FC = () => {
           label="পাসওয়ার্ড"
           type="password"
           isRequired
-          placeholder="আপনার পাসওয়ার্ড লিখুন"
+          leftIcon={<Lock className="w-4 h-4 text-slate-400" />}
+          placeholder="আপনার গোপন পাসওয়ার্ড লিখুন"
           error={errors.password?.message}
           {...register('password')}
         />
 
         {submitError && (
-          <p className="text-xs text-red-600 font-bangla font-medium bg-red-50 p-2 rounded border border-red-200">
-            {submitError}
+          <p className="text-xs text-red-700 font-bangla font-semibold bg-red-50 p-3 rounded-xl border border-red-200 flex items-center gap-1.5">
+            <span>⚠</span> {submitError}
           </p>
         )}
 
-        <Button type="submit" isFullWidth variant="primary" size="lg" isLoading={isSubmitting}>
+        <Button 
+          type="submit" 
+          isFullWidth 
+          variant="primary" 
+          size="lg" 
+          isLoading={isSubmitting}
+          className="shadow-md hover:shadow-emerald-900/20"
+        >
+          <LogIn className="w-4 h-4 mr-2" />
           লগইন করুন
         </Button>
       </form>
 
-      <div className="text-center text-xs text-gray-500 space-y-2">
-        <p className="font-bangla">
-          অ্যাকাউন্ট নেই?{' '}
-          <Link to="/auth/register/beneficiary" className="font-bold text-[#1B4D3E] hover:underline">
+      {/* Registration & Assistance Links */}
+      <div className="text-center text-xs sm:text-sm text-slate-600 font-bangla space-y-2 pt-3 border-t border-slate-100">
+        <p>
+          নতুন ব্যবহারকারী?{' '}
+          <Link to="/auth/register/beneficiary" className="font-bold text-[#064E3B] hover:text-[#047857] hover:underline ml-1">
             সেবাগ্রহীতা হিসেবে নিবন্ধন করুন
           </Link>
         </p>
-        <p className="font-bangla">
-          আইনজীবী?{' '}
-          <Link to="/auth/register/lawyer" className="font-bold text-[#D97706] hover:underline">
+        <p>
+          বিজ্ঞ আইনজীবী?{' '}
+          <Link to="/auth/register/lawyer" className="font-bold text-[#D97706] hover:text-[#B45309] hover:underline ml-1">
             আইনজীবী প্যানেলে যোগ দিন
           </Link>
         </p>

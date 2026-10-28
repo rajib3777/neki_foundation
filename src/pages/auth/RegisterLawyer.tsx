@@ -11,7 +11,7 @@ import { Select } from '../../components/ui/Select';
 import { Textarea } from '../../components/ui/Textarea';
 import { Button } from '../../components/ui/Button';
 import { FileUpload } from '../../components/ui/FileUpload';
-import { ShieldAlert, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 const steps = ['ব্যক্তিগত তথ্য', 'পেশাগত তথ্য', 'বার তথ্য', 'জেলা ও কর্মস্থল', 'নথিপত্র', 'রিভিউ ও জমা'];
 
@@ -98,11 +98,6 @@ export const RegisterLawyer: React.FC = () => {
         {steps.map((_, idx) => (
           <div key={idx} className={`h-1.5 flex-1 rounded-full transition-all ${idx <= currentStep ? 'bg-[#1B4D3E]' : 'bg-gray-200'}`} />
         ))}
-      </div>
-
-      <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700 font-bangla">
-        <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
-        <p>ডেমো সিস্টেম — বাস্তব নিবন্ধন হচ্ছে না। পরীক্ষামূলক ফর্ম প্রদর্শনী।</p>
       </div>
 
       {/* Step Contents */}

@@ -72,12 +72,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ role, userName }) => {
         </div>
       </div>
 
-      {/* Footer Link */}
-      <div className="p-5 pt-4 border-t border-gray-100">
-        <Link to="/" className="flex items-center gap-2 text-xs text-gray-500 hover:text-[#064E3B] font-sans font-bold transition-colors">
+      {/* Footer Link & Logout */}
+      <div className="p-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-[#064E3B] font-bangla font-bold transition-colors">
           <Icons.ArrowLeft className="w-3.5 h-3.5" />
-          <span>পাবলিক ওয়েবসাইটে ফিরুন</span>
+          <span>ওয়েবসাইটে ফিরুন</span>
         </Link>
+
+        <button
+          onClick={async () => {
+            const { authService } = await import('../../services/auth.service');
+            await authService.logout();
+            window.location.href = '/auth/login';
+          }}
+          className="flex items-center gap-1 text-xs text-red-600 hover:text-red-700 font-bangla font-bold py-1 px-2 rounded-lg hover:bg-red-50 transition-colors"
+        >
+          <Icons.LogOut className="w-3.5 h-3.5" />
+          <span>লগআউট</span>
+        </button>
       </div>
     </aside>
   );

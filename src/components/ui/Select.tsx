@@ -18,21 +18,21 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="space-y-1.5 w-full">
         {label && (
-          <label className="block text-xs font-bold text-gray-800 font-bangla tracking-wide">
+          <label className="block text-xs sm:text-sm font-bold text-slate-800 font-bangla tracking-wide">
             {label}
-            {isRequired && <span className="text-red-500 ml-1">*</span>}
+            {isRequired && <span className="text-red-500 ml-1 font-bold">*</span>}
           </label>
         )}
         <div className="relative">
           <select
             ref={ref}
             className={`
-              w-full px-4 py-3 text-sm text-gray-900 bg-white border rounded-xl appearance-none
-              transition-all duration-150 focus:outline-none focus:ring-2
+              w-full px-4 py-3 text-sm font-medium text-slate-900 bg-white border rounded-xl appearance-none
+              transition-all duration-200 focus:outline-none focus:ring-2
               min-h-[48px] pr-10 font-bangla
               ${error
                 ? 'border-red-400 focus:border-red-500 focus:ring-red-200 bg-red-50/30'
-                : 'border-gray-200 focus:border-[#064E3B] focus:ring-[#064E3B]/20 hover:border-gray-300'
+                : 'border-slate-300 focus:border-[#064E3B] focus:ring-[#064E3B]/20 hover:border-slate-400 shadow-xs'
               }
               ${className}
             `}
